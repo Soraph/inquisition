@@ -51,7 +51,11 @@ speak "Created ${cleanfile}"
   if [ -z "${eretic}" ]; then
     continue
   fi
-  speak "${eretic}"
+  if grep -q "," <<< "${eretic}"; then
+  	eretic=$(echo "${eretic}" | sed 's/, /,/g')
+  fi
+  eretic=$(echo "${eretic}" | sed 's/\"/\\"/g'| sed 's/\#/\\#/g' | sed 's/\[/\\[/g' | sed 's/\]/\\]/g')
+
   grep -v "^${eretic} {" "${cleanfile}" > "1-${cleanfile}"
   mv "1-${cleanfile}" "${cleanfile}"
   grep -v "^${eretic}{" "${cleanfile}" > "1-${cleanfile}"
