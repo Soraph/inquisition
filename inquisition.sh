@@ -19,7 +19,7 @@ function speak() {
 function checkforeresy() {
  if [ -e "$@" ]; then
   if [ ! -r "$@" ]; then
-    #If it exist but is not readable we notify and skip the database optmization
+    #If it exist but is not readable we notify
     speak "[NOTICE] $@ not readable, quitting."
     exit
   fi
